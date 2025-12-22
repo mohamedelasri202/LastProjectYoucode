@@ -1,4 +1,4 @@
-package com.logistics.ecosim2.service;
+package com.logistics.ecosim2.Service;
 
 import com.logistics.ecosim2.dtos.VehicleDTO;
 import java.util.List;

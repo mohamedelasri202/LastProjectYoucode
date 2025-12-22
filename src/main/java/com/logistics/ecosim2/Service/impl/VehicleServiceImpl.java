@@ -1,10 +1,10 @@
-package com.logistics.ecosim2.service.impl;
+package com.logistics.ecosim2.Service.impl;
 
 import com.logistics.ecosim2.dtos.VehicleDTO;
 import com.logistics.ecosim2.entity.Vehicle;
 import com.logistics.ecosim2.mapper.VehicleMapper;
 import com.logistics.ecosim2.repository.VehicleRepository;
-import com.logistics.ecosim2.service.VehicleService;
+import com.logistics.ecosim2.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
