@@ -3,6 +3,7 @@ package com.logistics.ecosim2.exception;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.coyote.Response;
 import org.apache.el.util.Validation;
+import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.ResourceAccessException;
+import
 
 import java.lang.invoke.MethodHandle;
+import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,29 +41,29 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST);
     }
 
-//    @ExceptionHandler(BusinessRuleViolationException.class)
-//    public ResponseEntity<ErrorResponseDTO> handleBusinessRuleViolation(BusinessRuleViolationException ex,
-//                                                                        HttpServletRequest request) {
-//        return new ResponseEntity<>(
-//                buildErrorResponse(
-//                        HttpStatus.UNPROCESSABLE_ENTITY, // 422 Status
-//                        "Business Rule Violation",
-//                        ex.getMessage(),
-//                        request.getRequestURI()),
-//                HttpStatus.UNPROCESSABLE_ENTITY // 422
-//        );
-//    }
+    @ExceptionHandler(BusinessRuleViolationException.class)
+    public ResponseEntity<ErrorResponseDTO> handleBusinessRuleViolation(BusinessRuleViolationException ex,
+                                                                        HttpServletRequest request) {
+        return new ResponseEntity<>(
+                buildErrorResponse(
+                        HttpStatus.UNPROCESSABLE_ENTITY, // 422 Status
+                        "Business Rule Violation",
+                        ex.getMessage(),
+                        request.getRequestURI()),
+                HttpStatus.UNPROCESSABLE_ENTITY // 422
+        );
+    }
 
     @ExceptionHandler(ResourceAccessException.class)
     public ResponseEntity<ErrorResponseDTO> handleResourceAccessException(ResourceNotFoundException ex,
                                                                           HttpServletRequest request) {
         return new ResponseEntity<>(
                 buildErrorResponse(
-                        HttpStatus.UNPROCESSABLE_ENTITY,
+                        HttpStatus.UNPROCESSABLE_ENTITY, // 422 Status
                         "Business Rule Violation",
                         ex.getMessage(),
                         request.getRequestURI()),
-                HttpStatus.UNPROCESSABLE_ENTITY
+                HttpStatus.UNPROCESSABLE_ENTITY // 422
         );
     }
 
@@ -101,5 +105,4 @@ public class GlobalExceptionHandler {
                 .path(path)
                 .build();
     }
-
 }
