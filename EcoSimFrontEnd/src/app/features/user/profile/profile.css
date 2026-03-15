@@ -1,0 +1,17 @@
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.animate-scan {
+  animation: scan 3s linear infinite;
+}
+
+
+.bg-white {
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+button:active {
+  transform: translate(2px, 2px);
+}
