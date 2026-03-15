@@ -1,0 +1,57 @@
+<nav class="w-full h-16 bg-gradient-to-r from-[#cfd1d1] to-[#e8e9e9] border-b-2 border-[#00a19b] flex items-center justify-between px-8 shadow-inner relative z-50">
+  
+  <div class="flex items-center gap-4">
+    <div class="h-10 w-10 bg-black flex items-center justify-center rotate-45 border-b-4 border-r-4 border-[#00a19b]">
+      <span class="text-white font-black -rotate-45 italic text-xl">E</span>
+    </div>
+    <div class="flex flex-col">
+      <span class="text-2xl font-black italic tracking-tighter text-black uppercase leading-none">
+        Eco<span class="text-[#00a19b]">Sim</span>
+      </span>
+      <span class="text-[7px] font-bold tracking-[0.5em] text-slate-500 uppercase">Petronas Performance Lab</span>
+    </div>
+  </div>
+
+  <div class="hidden md:flex items-center h-full gap-1">
+    <a routerLink="/home" routerLinkActive="bg-[#00a19b] text-white" 
+       class="h-full px-8 flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-800 hover:bg-black hover:text-white transition-all">
+      Home
+    </a>
+    <a routerLink="/myGarage" routerLinkActive="bg-[#00a19b] text-white" 
+       class="h-full px-8 flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-800 hover:bg-black hover:text-white transition-all">
+      My Garage
+    </a>
+    <a routerLink="/about" routerLinkActive="bg-[#00a19b] text-white" 
+       class="h-full px-8 flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-800 hover:bg-black hover:text-white transition-all">
+      About
+    </a>
+    <a routerLink="/contact" routerLinkActive="bg-[#00a19b] text-white" 
+       class="h-full px-8 flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-slate-800 hover:bg-black hover:text-white transition-all">
+      Contact us
+    </a>
+  </div>
+
+ <div class="flex items-center gap-4">
+  <a routerLink="/profile" 
+     class="bg-black/5 border-l-4 border-black px-4 py-1 group hover:bg-black hover:border-[#00a19b] transition-all cursor-pointer block">
+    
+    <p class="text-[8px] font-bold text-slate-500 uppercase group-hover:text-[#00a19b]/50 transition-colors">
+      Certified Pilot
+    </p>
+    
+    <p class="text-xs font-black text-black italic group-hover:text-white transition-colors">
+      {{ user()?.username || 'Guest' }}
+    </p>
+    
+  </a>
+
+  <button (click)="logout()" class="p-2 bg-black text-[#00a19b] hover:bg-red-600 hover:text-white transition-all">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5.636 5.636a9 9 0 1 0 12.728 0M12 3v9" />
+    </svg>
+  </button>
+
+
+    
+  </div>
+</nav>
