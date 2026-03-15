@@ -1,0 +1,60 @@
+<div class="h-[calc(100vh-64px)] w-full bg-[#bfc1c2] flex overflow-hidden relative font-sans">
+  <div class="absolute inset-0 opacity-10 pointer-events-none mix-blend-multiply" 
+       style="background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');"></div>
+
+  <aside class="w-72 h-full bg-white/70 backdrop-blur-xl border-r-2 border-black/10 flex flex-col z-20">
+    <div class="p-8 border-b border-black/5">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-4 bg-[#00a19b]"></div>
+        <p class="text-[10px] font-black text-black tracking-[0.3em] uppercase">Control Unit</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-4 py-8 space-y-4">
+      <button (click)="setSector('vehicles')" 
+              [class.bg-black]="currentSector() === 'vehicles'" 
+              class="w-full flex items-center justify-between p-4 group transition-all border-r-4 border-[#00a19b]">
+        <div class="flex items-center gap-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-[#00a19b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          <span class="text-[11px] font-black uppercase tracking-widest text-slate-700" [class.!text-white]="currentSector() === 'vehicles'">Vehicles</span>
+        </div>
+      </button>
+
+      <button (click)="setSector('add')" 
+              [class.bg-black]="currentSector() === 'add'" 
+              class="w-full flex items-center gap-4 p-4 transition-all border-l-4 border-transparent hover:border-[#00a19b] group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 group-hover:text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path d="M12 4v16m8-8H4" />
+        </svg>
+        <span class="text-[11px] font-black uppercase tracking-widest text-slate-700" [class.!text-white]="currentSector() === 'add'">Add Vehicle</span>
+      </button>
+
+      <button (click)="setSector('test')" 
+              [class.bg-black]="currentSector() === 'test'" 
+              class="w-full flex items-center justify-between p-4 group transition-all border-l-4 border-transparent hover:border-[#00a19b] hover:bg-black/5">
+        <div class="flex items-center gap-4">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               class="h-5 w-5 text-slate-400 group-hover:text-[#00a19b]" 
+               [class.!text-[#00a19b]]="currentSector() === 'test'"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+          <span class="text-[11px] font-black uppercase tracking-widest text-slate-700" [class.!text-white]="currentSector() === 'test'">Make ur test</span>
+        </div>
+        <div *ngIf="currentSector() === 'test'" class="w-1.5 h-1.5 rounded-full bg-[#00a19b] animate-pulse"></div>
+      </button>
+    </nav>
+
+    <div class="p-6 bg-black/5 mt-auto border-t border-black/5 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+      System_Status // Online
+    </div>
+  </aside>
+
+  <main class="flex-1 p-10 overflow-y-auto relative z-10">
+    <app-vehicle-list *ngIf="currentSector() === 'vehicles'"></app-vehicle-list>
+    <app-add-vehicle *ngIf="currentSector() === 'add'"></app-add-vehicle>
+    <app-vehicle-test *ngIf="currentSector() === 'test'"></app-vehicle-test>
+  </main>
+</div>
