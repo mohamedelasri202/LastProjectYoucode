@@ -1,0 +1,21 @@
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-scan {
+  animation: scan 4s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+h1 {
+  text-shadow: 12px 12px 0px rgba(0, 161, 155, 0.05);
+}
