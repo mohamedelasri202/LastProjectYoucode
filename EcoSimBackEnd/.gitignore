@@ -1,0 +1,16 @@
+# Ignore frontend folder
+../EcoSimFrontEnd/
+
+# Maven / Spring Boot
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# Windows junk
+desktop.ini
