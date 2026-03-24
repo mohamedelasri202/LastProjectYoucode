@@ -1,0 +1,38 @@
+
+.node-link {
+  display: flex !important;
+  align-items: center;
+  width: 100%;
+  padding: 1.25rem 1rem;
+  background-color: white;
+  border: 2px solid #000;
+  text-decoration: none !important;
+  color: black;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 0.5rem;
+}
+
+.node-link:hover {
+  background-color: #fafafa;
+  transform: translateX(4px);
+  box-shadow: -4px 0px 0px 0px #00a19b;
+}
+
+
+.active-node {
+  background-color: black !important;
+  color: white !important;
+  border-color: black !important;
+  box-shadow: 4px 4px 0px 0px #00a19b;
+}
+
+
+.node-link.border-slate-200 {
+  border: 2px solid #e2e8f0;
+  background: transparent;
+}

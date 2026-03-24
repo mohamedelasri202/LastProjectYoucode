@@ -1,0 +1,74 @@
+<section class="grid grid-cols-12 gap-12 p-6">
+  
+  <div class="col-span-12 lg:col-span-4 space-y-6">
+    <h3 class="text-2xl font-black uppercase italic border-l-8 border-[#ffcc00] pl-4">Add_Unit</h3>
+    <div class="bg-white border-2 border-black p-8 shadow-brutal">
+      <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <label class="label-tech">Manufacturer</label>
+          <input type="text" formControlName="brand" placeholder="e.g. BUGATTI" class="input-tech">
+        </div>
+        <div>
+          <label class="label-tech">Model Designation</label>
+          <input type="text" formControlName="model" placeholder="e.g. CHIRON" class="input-tech">
+        </div>
+        
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="label-tech">Efficiency</label>
+            <input type="number" formControlName="officialEfficiency" class="input-tech">
+          </div>
+          <div>
+            <label class="label-tech">Prod_Year</label>
+            <input type="number" formControlName="year" class="input-tech">
+          </div>
+        </div>
+
+        <div>
+          <label class="label-tech">Engine_Type</label>
+          <select formControlName="engineType" class="input-tech">
+            <option value="GASOLINE">GASOLINE</option>
+            <option value="DIESEL">DIESEL</option>
+            <option value="ELECTRIC">ELECTRIC</option>
+            <option value="HYBRID">HYBRID</option>
+          </select>
+        </div>
+
+        <button type="submit" [disabled]="vehicleForm.invalid || isLoading()" class="btn-primary w-full py-4 mt-4">
+          {{ isLoading() ? 'Syncing_Data...' : 'Initialize_Protocol' }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-span-12 lg:col-span-8 space-y-6">
+    <h3 class="text-2xl font-black uppercase italic border-l-8 border-black pl-4">Fleet_Inventory</h3>
+    <div class="bg-white border-2 border-black overflow-hidden shadow-brutal">
+      <table class="w-full text-left">
+        <thead class="bg-black text-white text-[9px] font-black uppercase tracking-widest italic">
+          <tr>
+            <th class="p-4">Identity</th>
+            <th class="p-4">Type</th>
+            <th class="p-4 text-center">Efficiency</th>
+            <th class="p-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-[11px] font-bold divide-y-4 divide-slate-50">
+          <tr *ngFor="let car of (vehicles())" class="hover:bg-slate-50 transition-all">
+            <td class="p-4">
+              <span class="block uppercase italic font-black text-sm">{{ car.brand }}</span>
+              <span class="block text-[10px] font-normal text-slate-400">{{ car.model }} ({{car.year}})</span>
+            </td>
+            <td class="p-4">
+              <span class="border border-black px-2 py-0.5 text-[8px]">{{ car.engineType }}</span>
+            </td>
+            <td class="p-4 text-center font-mono">{{ car.officialEfficiency }} L/100KM</td>
+            <td class="p-4 text-right space-x-2">
+              <button (click)="onDelete(car.id)" class="text-red-600 hover:bg-red-50 px-2 py-1 transition-all">PURGE</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

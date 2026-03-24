@@ -1,0 +1,52 @@
+/* Standard CSS Version - No @apply needed */
+.label-tech {
+  display: block;
+  font-size: 10px;
+  font-weight: 900; /* black */
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #94a3b8; /* slate-400 */
+  margin-bottom: 0.5rem;
+}
+
+.input-tech {
+  width: 100%;
+  background-color: #f8fafc; /* slate-50 */
+  border: 2px solid black;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-style: italic;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input-tech:focus {
+  background-color: #ffcc00;
+  color: black;
+}
+
+.shadow-brutal {
+  box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+}
+
+.btn-primary {
+  background-color: black;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #ffcc00;
+  color: black;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

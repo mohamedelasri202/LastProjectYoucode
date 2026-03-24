@@ -1,0 +1,30 @@
+<div class="flex justify-between items-start mb-12 relative">
+  <div class="space-y-6">
+    <h1 class="text-6xl font-black italic uppercase tracking-tighter text-black">Active <span class="text-[#00a19b]">Fleet</span></h1>
+    <div class="flex gap-4">
+      <div class="relative w-64">
+        <input type="text" (input)="onSearchChange($event)" placeholder="SEARCH UNIT..." class="w-full bg-black text-white text-[10px] font-bold py-3 pl-10 border-b-2 border-[#00a19b] outline-none uppercase">
+      </div>
+      <select (change)="onEngineChange($event)" class="bg-black text-white text-[10px] font-black py-3 px-4 border-b-2 border-[#00a19b] outline-none uppercase cursor-pointer">
+        <option value="">ALL ENGINES</option>
+        <option value="PETROL">PETROL</option>
+        <option value="DIESEL">DIESEL</option>
+        <option value="ELECTRIC">ELECTRIC</option>
+      </select>
+    </div>
+  </div>
+  </div>
+
+<div class="flex items-center gap-4 mb-6" *ngIf="totalPages() > 1">
+  <button (click)="prevPage()" [disabled]="criteria().page === 0" class="p-2 bg-black text-[#00a19b] disabled:opacity-30 transition-all">
+    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 19l-7-7 7-7" stroke-width="3"/></svg>
+  </button>
+  <span class="text-[10px] font-black uppercase">Page {{ criteria().page + 1 }} / {{ totalPages() }}</span>
+  <button (click)="nextPage()" [disabled]="criteria().page >= totalPages() - 1" class="p-2 bg-black text-[#00a19b] disabled:opacity-30 transition-all">
+    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7" stroke-width="3"/></svg>
+  </button>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl">
+  <app-vehicle-card *ngFor="let vehicle of vehicles()" [vehicle]="vehicle"></app-vehicle-card>
+</div>

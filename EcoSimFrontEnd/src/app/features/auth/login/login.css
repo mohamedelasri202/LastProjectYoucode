@@ -1,0 +1,21 @@
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.animate-scan {
+  animation: scan 5s linear infinite;
+}
+
+input:focus {
+  box-shadow: 6px 6px 0px 0px rgba(0, 161, 155, 0.2);
+}
+
+
+header {
+  pointer-events: none;
+}
+
+header h2, header p, header span {
+  pointer-events: auto;
+}

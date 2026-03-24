@@ -1,0 +1,90 @@
+<div class="flex min-h-screen bg-[#f8f9fa] font-sans text-slate-900">
+  
+  <aside class="w-80 bg-white border-r-4 border-black flex flex-col sticky top-0 h-screen z-50">
+    
+    <div class="p-8 border-b-4 border-black bg-white">
+      <div class="flex items-center gap-3">
+        <div class="bg-black text-white p-2 font-black text-xl italic leading-none">E</div>
+        <div>
+          <h1 class="text-2xl font-black italic uppercase tracking-tighter leading-none">
+            Eco<span class="text-[#00a19b]">SIM</span>
+          </h1>
+          <p class="text-[7px] font-bold text-slate-400 uppercase tracking-widest mt-1">Petronas Performance Lab</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 mt-4 bg-slate-50 p-2 border border-slate-200">
+        <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+        <span class="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">Core_System_Active</span>
+      </div>
+    </div>
+
+    <nav class="flex-1 p-6 space-y-6 overflow-y-auto bg-[#fafafa]">
+      
+      <div class="space-y-2">
+        <div class="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-4 flex items-center gap-2">
+          <span class="w-4 h-[1px] bg-slate-200"></span> System_Navigation
+        </div>
+        
+        <a routerLink="/admin/stats" routerLinkActive="active-node" class="node-link group">
+          <span class="text-[#00a19b] font-mono mr-2">01 //</span> 
+          <span class="flex-1">Global_Analytics</span>
+          <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+        </a>
+        
+        <a routerLink="/admin/fleet" routerLinkActive="active-node" class="node-link group">
+          <span class="text-[#00a19b] font-mono mr-2">02 //</span> 
+          <span class="flex-1">Fleet_Inventory</span>
+          <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+        </a>
+        
+        <a routerLink="/admin/users" routerLinkActive="active-node" class="node-link group">
+          <span class="text-[#00a19b] font-mono mr-2">03 //</span> 
+          <span class="flex-1">User_Registry</span>
+          <span class="opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+        </a>
+      </div>
+
+      <div class="pt-6 space-y-2">
+        <div class="text-[9px] font-black uppercase text-slate-400 tracking-widest mb-4 flex items-center gap-2">
+          <span class="w-4 h-[1px] bg-slate-200"></span> External_Links
+        </div>
+        <button (click)="logout()" class="node-link border-slate-200 text-slate-400 hover:text-black">
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <div class="p-6 border-t-4 border-black bg-white">
+      <div class="flex items-center justify-between p-3 border-2 border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 bg-black rounded-sm flex items-center justify-center text-[#00a19b] font-black italic text-xs">AD</div>
+          <div>
+            <p class="text-[7px] font-black uppercase text-slate-400">Operator</p>
+           <a routerLink="/profile" 
+            class="group cursor-pointer flex items-center gap-2 hover:opacity-80 transition-all">
+  
+           <div class="w-1.5 h-1.5 bg-[#00a19b] rounded-full group-hover:animate-ping"></div>
+
+          <p class="text-[10px] font-black uppercase italic text-black group-hover:text-[#00a19b] transition-colors tracking-widest">
+           {{ adminName }}
+            </p>
+
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-2 w-2 text-white/20 group-hover:text-[#00a19b]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+        </svg>
+        </a>
+          </div>
+        </div>
+        <button class="hover:text-red-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 bg-[#f8f9fa]">
+    <router-outlet></router-outlet>
+  </main>
+</div>

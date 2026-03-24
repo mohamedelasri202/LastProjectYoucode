@@ -1,0 +1,69 @@
+<section class="max-w-4xl mx-auto py-12 px-6">
+  <header class="mb-12 border-l-8 border-[#00a19b] pl-6">
+    <h1 class="text-5xl font-black italic uppercase text-black leading-none">Contact <span class="text-[#00a19b]">HQ</span></h1>
+    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-2">Manual_Transmission_Interface // Protocol_09</p>
+  </header>
+
+  <div class="grid grid-cols-12 gap-8">
+    
+    <div class="col-span-12 lg:col-span-8 bg-white border-4 border-black p-10 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+      <div class="space-y-8">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <label class="block text-[10px] font-black uppercase text-slate-400 tracking-tighter italic">User_Identity</label>
+            <input type="text" placeholder="e.g. PILOT_NAME" 
+                   class="w-full bg-slate-50 border-2 border-black p-4 text-xs font-bold uppercase outline-none hover:bg-slate-100 transition-colors">
+          </div>
+          <div class="space-y-2">
+            <label class="block text-[10px] font-black uppercase text-slate-400 tracking-tighter italic">Comm_Frequency (Email)</label>
+            <input type="email" placeholder="USER@ECOSIM.SYSTEM" 
+                   class="w-full bg-slate-50 border-2 border-black p-4 text-xs font-bold uppercase outline-none hover:bg-slate-100 transition-colors">
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-[10px] font-black uppercase text-slate-400 tracking-tighter italic">Transmission_Purpose</label>
+          <select class="w-full bg-slate-50 border-2 border-black p-4 text-xs font-bold uppercase outline-none cursor-pointer">
+            <option>TECHNICAL_QUERY // BUG_REPORT</option>
+            <option>SIMULATION_DATA // DISCREPANCY</option>
+            <option>FLEET_EXPANSION // REQUEST</option>
+            <option>GENERAL_MISSION_CONCERN</option>
+          </select>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block text-[10px] font-black uppercase text-slate-400 tracking-tighter italic">Detailed_Message_Dump</label>
+          <textarea rows="6" placeholder="TYPE YOUR TRANSMISSION HERE..." 
+                    class="w-full bg-slate-50 border-2 border-black p-4 text-xs font-bold uppercase outline-none hover:bg-slate-100 transition-colors resize-none"></textarea>
+        </div>
+
+        <button class="w-full bg-black text-white py-5 font-black uppercase italic text-sm tracking-[0.4em] hover:bg-[#ffcc00] hover:text-black transition-all">
+          Initialize_Transmission
+        </button>
+      </div>
+    </div>
+
+    <div class="col-span-12 lg:col-span-4 space-y-6">
+      
+      <div class="bg-black text-white p-8 border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,161,155,1)]">
+        <h4 class="text-[#00a19b] text-[11px] font-black uppercase mb-4 italic tracking-widest underline">Support_Status</h4>
+        <div class="space-y-4 opacity-70">
+          <p class="text-[10px] leading-relaxed font-mono font-bold uppercase">
+            [SYNC_ACTIVE] All system reports are routed through the Casablanca central relay.
+          </p>
+          <p class="text-[9px] font-mono">Response_ETA: 24_HOURS_CYCLE</p>
+        </div>
+      </div>
+
+      <div class="p-8 border-4 border-black bg-[#ffcc00] shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+        <h4 class="text-black text-[11px] font-black uppercase mb-3 italic tracking-widest">Global_HQ</h4>
+        <p class="text-xs font-black italic uppercase leading-none">Sector_05_EcoSim</p>
+        <p class="text-[9px] font-bold uppercase mt-6 border-t border-black/20 pt-4 tracking-tighter">
+          Email: HQ@ECOSIM.LOGISTICS
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
