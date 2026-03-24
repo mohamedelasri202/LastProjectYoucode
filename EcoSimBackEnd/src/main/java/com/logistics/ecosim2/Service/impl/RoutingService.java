@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.logistics.ecosim2.dtos.RouteRequest;
 import com.logistics.ecosim2.dtos.TripProfileResponse;
 import com.logistics.ecosim2.entity.TripProfile;
+import com.logistics.ecosim2.entity.Vehicle;
 import com.logistics.ecosim2.repository.TripProfileRepository;
+import com.logistics.ecosim2.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -23,6 +25,8 @@ public class RoutingService {
 
     @Autowired
     private TripProfileRepository tripProfileRepository;
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String ORS_URL = "https://api.openrouteservice.org/v2/directions/driving-car/geojson";
@@ -35,7 +39,13 @@ public class RoutingService {
         if (dto == null) return null;
 
 
+        Vehicle vehicle = vehicleRepository.findById(request.getVehicleId())
+                .orElseThrow(() -> new RuntimeException("Vehicle not found with ID: " + request.getVehicleId()));
+
         TripProfile entity = new TripProfile();
+
+        entity.setVehicle(vehicle);
+
         entity.setTripName("Mission_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM_HH:mm")));
         entity.setTotalDistanceKm(dto.getDistanceKm());
         entity.setHighwayPercentage(dto.getHighwayPercentage());
@@ -44,8 +54,14 @@ public class RoutingService {
         entity.setAvgCitySpeedKmh(dto.getAvgCitySpeedKmh());
         entity.setRoadInclineDegree(dto.getRoadInclineDegree());
 
+       TripProfile savedTrip  = tripProfileRepository.save(entity);
 
-        tripProfileRepository.save(entity);
+        dto.setId(savedTrip.getId());
+
+        dto.setVehicleId(vehicle.getId());
+
+
+
 
         return dto;
     }

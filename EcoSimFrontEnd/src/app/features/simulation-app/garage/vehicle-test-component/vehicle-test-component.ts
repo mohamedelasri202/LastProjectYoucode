@@ -30,10 +30,10 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
   simulationResponse = this.store.selectSignal(simulationFeature.selectResult);
   isSimulating = this.store.selectSignal(simulationFeature.selectIsLoading);
 
- 
+
   currentStep = signal(1);
   isReportReady = signal(false);
-  isTripAnalyzed = signal(false); 
+  isTripAnalyzed = signal(false);
   parsedAI = signal<any>(null);
 
   private map?: L.Map;
@@ -41,8 +41,9 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
   private markers: L.Marker[] = [];
 
   testSelection = signal({
+    id: null as number | null,
     fuelPrice: 0,
-    vehicleId: '',
+    vehicleId: null,
     selectedVehicle: null as any,
     distanceKm: 0,
     highwayPercentage: 0,
@@ -60,7 +61,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
       if (response?.aiRecommendation) {
         try {
           const jsonBody = JSON.parse(response.aiRecommendation);
-        
+
           const reportContent = jsonBody['Summary'] ? jsonBody : Object.values(jsonBody)[0];
           this.parsedAI.set(reportContent);
         } catch (e) {
@@ -96,7 +97,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
   onMakeTrip() {
     if (this.testSelection().distanceKm > 0) {
       this.isReportReady.set(true);
-      this.isTripAnalyzed.set(true); 
+      this.isTripAnalyzed.set(true);
     }
   }
 
@@ -112,7 +113,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
     this.currentStep.update(s => s - 1);
   }
 
- 
+
   private initMap(): void {
     const container = document.getElementById('map');
     if (!container) return;
@@ -141,7 +142,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
       this.markers.forEach(m => m.remove());
       this.markers = [];
       this.isReportReady.set(false);
-      this.isTripAnalyzed.set(false); 
+      this.isTripAnalyzed.set(false);
       this.testSelection.update(prev => ({ ...prev, distanceKm: 0 }));
     }
 
@@ -155,11 +156,29 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
   private calculateRoute() {
     const start = this.markers[0].getLatLng();
     const end = this.markers[1].getLatLng();
+    const selectedVehicleId = this.testSelection().vehicleId;
+
+    if (!selectedVehicleId) {
+      console.error('[EcoSim] Error: No vehicle selected for this trip.');
+      return;
+    }
+
     this.testService.calculateDistance({
-      startLat: start.lat, startLng: start.lng,
-      endLat: end.lat, endLng: end.lng
+      startLat: start.lat,
+      startLng: start.lng,
+      endLat: end.lat,
+      endLng: end.lng,
+      vehicleId: selectedVehicleId
     }).subscribe({
-      next: (res: any) => this.testSelection.update(prev => ({ ...prev, ...res })),
+      next: (res: any) => {
+
+        this.testSelection.update(prev => ({
+          ...prev,
+          ...res,
+          id: res.id
+        }));
+        console.log('[EcoSim] Telemetry synced. Trip ID:', res.id);
+      },
       error: (err) => console.error('[EcoSim] Routing Error:', err)
     });
   }
@@ -167,22 +186,34 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
 
   onRunSimulation() {
     const selection = this.testSelection();
-    if (selection.selectedVehicle && selection.fuelPrice) {
+
+    // DEBUGGING: This will tell us which one is null
+    console.log('--- VALIDATION CHECK ---');
+    console.log('Vehicle Selected:', !!selection.selectedVehicle);
+    console.log('Fuel Price > 0:', selection.fuelPrice > 0);
+    console.log('Trip ID from DB:', selection.id);
+
+    if (selection.selectedVehicle && selection.fuelPrice > 0 && selection.id) {
       this.store.dispatch(SimulationActions.runSimulation({
         vehicleId: selection.selectedVehicle.id,
-        tripProfileId: 5,
+        tripProfileId: selection.id,
         fuelPrice: selection.fuelPrice
       }));
+    } else {
+      console.warn('[EcoSim] Cannot run simulation. Details missing:', {
+        hasVehicle: !!selection.selectedVehicle,
+        hasPrice: selection.fuelPrice > 0,
+        hasTripId: !!selection.id
+      });
     }
   }
-
 
   downloadReport() {
     const doc = new jsPDF();
     const res = this.simulationResponse()?.simulationDetails;
     const ai = this.parsedAI();
 
-  
+
     doc.setFillColor(0, 161, 155);
     doc.rect(0, 0, 210, 40, 'F');
     doc.setTextColor(255, 255, 255);
@@ -192,7 +223,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
     doc.setFontSize(10);
     doc.text(`MISSION REF: ${res?.trip?.tripName || 'UNNAMED_TASK'}`, 15, 33);
 
-    
+
     doc.setTextColor(0, 0, 0);
     doc.setFontSize(14);
     doc.text('Vehicle & Route Telemetry', 15, 55);
@@ -212,7 +243,7 @@ export class VehicleTestComponent implements OnInit, AfterViewChecked {
       headStyles: { fillColor: [0, 0, 0] }
     });
 
-    
+
     if (ai) {
       const finalY = (doc as any).lastAutoTable.finalY + 15;
       doc.setFontSize(14);

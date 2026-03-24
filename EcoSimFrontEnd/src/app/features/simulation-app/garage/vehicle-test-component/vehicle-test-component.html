@@ -1,23 +1,23 @@
-<section class="max-w-6xl mx-auto grid grid-cols-12 gap-8 animate-in fade-in duration-500">
-  
+`<section class="max-w-6xl mx-auto grid grid-cols-12 gap-8 animate-in fade-in duration-500">
+
   <div class="col-span-12 lg:col-span-8 space-y-8">
-    
+
     <!-- STEP 1: Fuel Price -->
     <div *ngIf="currentStep() === 1" class="space-y-8 animate-in slide-in-from-left-5">
       <header>
         <h1 class="text-5xl font-black italic uppercase text-black">Market <span class="text-[#00a19b]">Data</span></h1>
         <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">Step 01 // Define Fuel Costs</p>
       </header>
-      
+
       <div class="bg-black p-10 shadow-2xl border-t-4 border-[#00a19b]">
         <label class="block text-[9px] font-black text-[#00a19b] uppercase tracking-widest mb-4">Input Price per Liter</label>
         <div class="relative">
-          <input type="number" 
+          <input type="number"
                  (input)="testSelection.update(p => ({...p, fuelPrice: +$any($event.target).value}))"
                  placeholder="0.00"
                  class="w-full bg-transparent border-b-2 border-white/10 pb-6 text-5xl font-black italic text-white outline-none focus:border-[#00a19b]">
         </div>
-        <button (click)="confirmPrice()" 
+        <button (click)="confirmPrice()"
                 [disabled]="testSelection().fuelPrice <= 0"
                 class="w-full mt-8 bg-[#00a19b] text-black py-4 font-black uppercase italic tracking-widest hover:bg-white transition-all disabled:opacity-20">
           Next: Select Unit
@@ -36,7 +36,7 @@
       </header>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div *ngFor="let vehicle of vehicles()" 
+        <div *ngFor="let vehicle of vehicles()"
              (click)="confirmVehicle(vehicle)"
              class="bg-white p-6 border-t-4 border-black cursor-pointer hover:border-[#00a19b] hover:-translate-y-1 transition-all group shadow-sm">
           <p class="text-[8px] font-bold text-slate-400 uppercase">{{ vehicle.brand }}</p>
@@ -54,14 +54,14 @@
         </div>
         <button (click)="goBack()" class="text-[10px] font-bold text-slate-400 uppercase hover:text-black">← Re-select Unit</button>
       </header>
-      
+
       <div id="map" class="h-[400px] w-full bg-black border-2 border-black shadow-xl"></div>
 
       <div class="flex justify-between items-center bg-black p-5 border-b-4 border-[#00a19b]">
         <p class="text-[10px] font-bold text-white/40 uppercase italic">
           {{ testSelection().distanceKm > 0 ? 'Telemetry link established' : 'Initializing GPS points...' }}
         </p>
-        <button (click)="onMakeTrip()" 
+        <button (click)="onMakeTrip()"
                 [disabled]="!testSelection().distanceKm || isTripAnalyzed()"
                 class="bg-[#00a19b] text-black px-10 py-3 font-black uppercase italic text-[11px] tracking-widest hover:bg-white transition-all disabled:opacity-20">
           {{ isTripAnalyzed() ? 'Analysis Locked' : 'Make a Trip' }}
@@ -71,7 +71,7 @@
       <!-- AI Advisory Card -->
       <div *ngIf="parsedAI()" class="animate-in fade-in slide-in-from-bottom-8 duration-700">
         <div class="bg-white border-4 border-black p-8 shadow-2xl relative overflow-hidden">
-          
+
           <header class="mb-8 border-b-2 border-slate-100 pb-4">
             <h2 class="text-4xl font-black italic uppercase text-black">
               AI <span class="text-[#00a19b]">Advisory</span>
@@ -91,7 +91,7 @@
             <div>
               <h3 class="text-[10px] font-black uppercase text-[#00a19b] mb-4 tracking-widest">// Strategic Actions</h3>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div *ngFor="let rec of (parsedAI()['Actionable Recommendations'] || parsedAI()['Recommendations'])" 
+                <div *ngFor="let rec of (parsedAI()['Actionable Recommendations'] || parsedAI()['Recommendations'])"
                      class="p-4 bg-slate-50 border-l-4 border-black">
                   <p class="text-[11px] leading-relaxed text-black" [innerHTML]="rec"></p>
                 </div>
@@ -110,7 +110,7 @@
           </div>
 
           <!-- Download Button -->
-          <button (click)="downloadReport()" 
+          <button (click)="downloadReport()"
                   class="w-full mt-8 bg-black text-white py-4 font-black uppercase italic text-[11px] tracking-[0.2em] hover:bg-[#00a19b] hover:text-black transition-all flex items-center justify-center gap-3">
             <span>↓</span> Download_Strategic_Report.pdf
           </button>
@@ -126,7 +126,7 @@
   <aside class="col-span-12 lg:col-span-4">
     <div class="sticky top-10 bg-white border-2 border-black p-8 shadow-2xl space-y-8">
       <h2 class="text-[11px] font-black uppercase tracking-[0.2em] border-b-2 border-black pb-4 italic">Simulation HUD</h2>
-      
+
       <div class="space-y-6">
         <div>
           <p class="text-[8px] font-bold text-slate-400 uppercase">Fuel Market Price</p>
@@ -150,7 +150,7 @@
           <span class="text-[10px] font-black text-[#00a19b] uppercase">Trip Analysis</span>
           <span class="text-[9px] font-mono font-bold">{{ testSelection().estimatedTimeMinutes }} MIN</span>
         </div>
-        
+
         <div class="space-y-1">
           <div class="flex justify-between text-[7px] font-bold text-slate-500 uppercase">
             <span>City {{ testSelection().cityPercentage }}%</span>
@@ -175,7 +175,7 @@
           </div>
         </div>
 
-        <div *ngIf="simulationResponse()?.simulationDetails as res" 
+        <div *ngIf="simulationResponse()?.simulationDetails as res"
              class="mt-6 p-6 bg-black text-white animate-in slide-in-from-right-4 border-l-4 border-[#00a19b]">
           <h3 class="text-[#00a19b] text-[10px] font-black uppercase mb-4 tracking-tighter italic underline">Final Protocol Data</h3>
           <div class="space-y-3">
@@ -199,4 +199,4 @@
     </div>
   </aside>
 
-</section>
+</section>`

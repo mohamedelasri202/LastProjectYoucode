@@ -3,4 +3,5 @@ export interface RouteRequest {
   startLng: number;
   endLat: number;
   endLng: number;
+  vehicleId:number;
 }

@@ -12,4 +12,6 @@ public class TripProfileResponse {
     private double avgHighwaySpeedKmh;
     private double avgCitySpeedKmh;
     private int estimatedTimeMinutes;
+    private long VehicleId;
+    private long id;
 }

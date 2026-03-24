@@ -13,12 +13,12 @@ export class VehicleEffects {
 
   loadVehicles$ = createEffect(() => this.actions$.pipe(
     ofType(VehicleActions.loadVehicles),
-    switchMap(({ criteria }) => 
+    switchMap(({ criteria }) =>
       this.vehicleService.getVehicles(criteria).pipe(
-        map((pageResponse: any) => VehicleActions.loadVehiclesSuccess({ 
-          vehicles: pageResponse.content || [], 
-          totalElements: pageResponse.totalElements || 0, 
-          totalPages: pageResponse.totalPages || 0 
+        map((pageResponse: any) => VehicleActions.loadVehiclesSuccess({
+          vehicles: pageResponse.content || [],
+          totalElements: pageResponse.totalElements || 0,
+          totalPages: pageResponse.totalPages || 0
         })),
         catchError(error => of(VehicleActions.loadVehiclesFailure({ error: error.message })))
       )
@@ -29,11 +29,11 @@ export class VehicleEffects {
   addVehicleAI$ = createEffect(() => this.actions$.pipe(
     ofType(VehicleActions.addVehicleAI),
     tap(() => console.log('📡 [System] Dispatching Identity to AI Engine...')),
-    switchMap(({ vehicle }) => 
+    switchMap(({ vehicle }) =>
       this.vehicleService.createAiVehicle(vehicle).pipe(
         map(newVehicle => VehicleActions.addVehicleAISuccess({ vehicle: newVehicle })),
         catchError(error => {
-          console.error('❌ [AI Error]:', error);
+          console.error(' [AI Error]:', error);
           return of(VehicleActions.addVehicleAIFailure({ error: error.message }));
         })
       )
@@ -43,8 +43,8 @@ export class VehicleEffects {
 
   addVehicleManual$ = createEffect(() => this.actions$.pipe(
     ofType(VehicleActions.addVehicleManual),
-    tap(() => console.log('🏎️ [Admin] Initializing Manual Vehicle Registration...')),
-    switchMap(({ vehicle }) => 
+    tap(() => console.log(' [Admin] Initializing Manual Vehicle Registration...')),
+    switchMap(({ vehicle }) =>
       this.vehicleService.createManualVehicle(vehicle).pipe(
         map(newVehicle => VehicleActions.addVehicleManualSuccess({ vehicle: newVehicle })),
         catchError(error => of(VehicleActions.addVehicleManualFailure({ error: error.message })))
@@ -52,11 +52,11 @@ export class VehicleEffects {
     )
   ));
 
- 
+
   updateVehicle$ = createEffect(() => this.actions$.pipe(
     ofType(VehicleActions.updateVehicle),
-    tap(({ id }) => console.log('🛠️ [Admin] Reconfiguring Vehicle ID:', id)),
-    switchMap(({ id, vehicle }) => 
+    tap(({ id }) => console.log('️ [Admin] Reconfiguring Vehicle ID:', id)),
+    switchMap(({ id, vehicle }) =>
       this.vehicleService.updateVehicle(id, vehicle).pipe(
         map(updatedVehicle => VehicleActions.updateVehicleSuccess({ vehicle: updatedVehicle })),
         catchError(error => of(VehicleActions.updateVehicleFailure({ error: error.message })))
@@ -67,8 +67,8 @@ export class VehicleEffects {
 
   deleteVehicle$ = createEffect(() => this.actions$.pipe(
     ofType(VehicleActions.deleteVehicle),
-    tap(({ id }) => console.log('🗑️ [Admin] Purging Vehicle VIN:', id)),
-    switchMap(({ id }) => 
+    tap(({ id }) => console.log('🗑 [Admin] Purging Vehicle VIN:', id)),
+    switchMap(({ id }) =>
       this.vehicleService.deleteVehicle(id).pipe(
         map(() => VehicleActions.deleteVehicleSuccess({ id })),
         catchError(error => of(VehicleActions.deleteVehicleFailure({ error: error.message })))
