@@ -5,10 +5,10 @@ import { authFeature } from '../../../state/auth/auth.reducer';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const store = inject(Store);
-  
-  
+
+
   const token = store.selectSignal(authFeature.selectToken)();
-console.log('🔑 Token on request:', token ? 'EXISTS' : 'NULL', req.url);
+console.log(' Token on request:', token ? 'EXISTS' : 'NULL', req.url);
   if (token) {
     const authReq = req.clone({
       setHeaders: {

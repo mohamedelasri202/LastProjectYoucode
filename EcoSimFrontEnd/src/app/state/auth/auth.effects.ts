@@ -29,11 +29,11 @@ export class AuthEffects {
 
 register$ = createEffect(() => this.actions$.pipe(
   ofType(AuthActions.register),
-  tap(({ userData }) => console.log('🏎️ [Auth Effect] Registering new pilot:', userData.email)),
+  tap(({ userData }) => console.log(' [Auth Effect] Registering new pilot:', userData.email)),
   switchMap(({ userData }) => this.authService.register(userData).pipe(
     map(() => {
       console.log('[Auth Effect] Registration Success! Redirecting to login...');
-      return AuthActions.registerSuccess(); 
+      return AuthActions.registerSuccess();
     }),
     catchError(error => {
       console.error(' [Auth Effect] Registration Failed:', error);
@@ -44,19 +44,19 @@ register$ = createEffect(() => this.actions$.pipe(
 
 registerSuccess$ = createEffect(() => this.actions$.pipe(
   ofType(AuthActions.registerSuccess),
-  tap(() => this.router.navigate(['/login'])) 
+  tap(() => this.router.navigate(['/login']))
 ), { dispatch: false });
 
 authSuccess$ = createEffect(() => this.actions$.pipe(
   ofType(AuthActions.authSuccess),
   tap(({ response }) => {
-    
-    this.authService.setSession(response); 
 
- 
+    this.authService.setSession(response);
+
+
     if (response.role === 'ADMIN') {
       console.log(' [System] Admin Clearance: Routing to Dashboard');
-      this.router.navigate(['/admin/stats']); 
+      this.router.navigate(['/admin/stats']);
     } else {
       console.log(' [System] User Clearance: Routing to Simulation');
       this.router.navigate(['/home']);
@@ -64,17 +64,17 @@ authSuccess$ = createEffect(() => this.actions$.pipe(
   })
 ), { dispatch: false });
 
-// auth.effects.ts
+
 
 logout$ = createEffect(() => this.actions$.pipe(
   ofType(AuthActions.logout),
   tap(() => {
-    
-    localStorage.removeItem('auth_data'); 
-    
-    
 
-    console.log('🧹 [Auth Effect] System Purged. Session Terminated.');
+    localStorage.removeItem('auth_data');
+
+
+
+    console.log('[Auth Effect] System Purged. Session Terminated.');
     this.router.navigate(['/login']);
   })
 ), { dispatch: false });

@@ -33,7 +33,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/register`, userData);
   }
 
-  // 👇 ADD THIS NOW - IT WAS THE MISSING LINK
+
   checkAuthStatus(): Observable<AuthResponse> {
     return this.http.get<AuthResponse>(`${this.API_URL}/me`);
   }

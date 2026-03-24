@@ -18,7 +18,7 @@ export class AdminEffects {
   ));
 
 
-// admin.effects.ts
+
 toggleUserBlock$ = createEffect(() => this.actions$.pipe(
   ofType(AdminActions.toggleUserBlock), // 1. Listen for the Action from the Component
   switchMap(({ userId }) => this.adminService.toggleOperatorStatus(userId).pipe( // 2. Call the Service

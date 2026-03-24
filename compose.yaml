@@ -1,0 +1,26 @@
+services:
+  backend-db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mohamed@1230
+      POSTGRES_DB: dBecosim
+    ports:
+      - "5433:5432"
+
+  backend-api:
+    build: ./EcoSimBackEnd
+    ports:
+      - "8080:8080"
+    environment:
+
+      SPRING_DATASOURCE_URL: jdbc:postgresql://backend-db:5432/dBecosim
+    depends_on:
+      - backend-db
+
+  frontend-ui:
+    build: ./EcoSimFrontEnd
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend-api

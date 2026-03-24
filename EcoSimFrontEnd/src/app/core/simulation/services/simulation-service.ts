@@ -12,7 +12,7 @@ export class SimulationService {
   private readonly apiUrl = `${environment.apiUrl}/simulations/run`;
 
   executeSimulation(request: SimulationRequest): Observable<SimulationResponse> {
-    // This now returns the object containing { simulationDetails, aiRecommendation }
+
     return this.http.post<SimulationResponse>(this.apiUrl, request);
   }
 }

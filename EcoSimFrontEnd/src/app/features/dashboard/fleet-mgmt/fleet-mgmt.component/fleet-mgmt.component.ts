@@ -17,11 +17,11 @@ export class FleetMgmtComponent implements OnInit {
   private fb = inject(FormBuilder);
   private store = inject(Store);
 
-  // Selectors
+
   vehicles = this.store.selectSignal(vehicleFeature.selectVehicles);
   isLoading = this.store.selectSignal(vehicleFeature.selectIsLoading);
 
-  // Form Initialization
+
   vehicleForm = this.fb.group({
     brand: ['', [Validators.required]],
     model: ['', [Validators.required]],
@@ -32,8 +32,8 @@ export class FleetMgmtComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.store.dispatch(VehicleActions.loadVehicles({ 
-      criteria: { page: 0, size: 10, engineType: null } 
+    this.store.dispatch(VehicleActions.loadVehicles({
+      criteria: { page: 0, size: 10, engineType: null }
     }));
   }
 

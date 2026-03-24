@@ -24,14 +24,14 @@ export class VehicleService {
     return this.http.get<any>(searchUrl, { params });
   }
 
- 
+
   createAiVehicle(vehicleData: { brand: string, model: string, year: number }): Observable<Vehicle> {
     const aiUrl = `${this.baseUrl}/ai`;
-    console.log(`📡 [AI Commissioning] Sending data to: ${aiUrl}`, vehicleData);
+    console.log(` [AI Commissioning] Sending data to: ${aiUrl}`, vehicleData);
     return this.http.post<Vehicle>(aiUrl, vehicleData);
   }
 
-  
+
   createManualVehicle(vehicle: Partial<Vehicle>): Observable<Vehicle> {
     return this.http.post<Vehicle>(`${this.baseUrl}/manual`, vehicle);
   }

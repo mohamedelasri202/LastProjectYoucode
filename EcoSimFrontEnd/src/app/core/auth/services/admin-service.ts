@@ -11,14 +11,14 @@ export class AdminService {
   private http = inject(HttpClient);
   private readonly API_URL = `${environment.apiUrl}/admin/users`;
 
- 
+
   fetchAllOperators(): Observable<OperatorAccount[]> {
     return this.http.get<OperatorAccount[]>(this.API_URL);
   }
 
-  
+
   toggleOperatorStatus(id: number): Observable<OperatorAccount> {
-    console.log('📡 [UI] Dispatching Toggle for User ');
+    console.log(' [UI] Dispatching Toggle for User ');
     return this.http.patch<OperatorAccount>(`${this.API_URL}/${id}/block`, {});
   }
   fetchGlobalStats(): Observable<Record<string, number>> {
